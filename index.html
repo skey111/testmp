@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>test</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link data-type="checkvaildsign" rel="icon" href="data:image/ico;base64,aWNv">
+    <script src="https://libs.cdnjs.net/jquery/3.4.1/jquery.min.js"></script>
+    <style type="text/css">
+
+        .t {
+            border: 1px gray solid;
+            border-spacing: 0px;
+            border-collapse: collapse;
+        }
+
+            .t td {
+                border: 1px gray solid;
+                padding: 5px;
+            }
+
+            .t th {
+                border: 1px gray solid;
+                padding: 5px;
+            }
+    </style>
+</head>
+<body>
+    <div id="divTable">
+        <table style="width:100%" class="t">
+            <thead>
+
+                <tr>
+                    <th>序号</th>
+                    <th>公众号</th>
+                    <th>域名</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+            <tr>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var url = "http://localhost:54625/Services/GetUrls.ashx";
+            var body = "<tr><td>$Index$</td><td>$MpName$</td><td><a href='$CheckUrl$'>$Domain$</a></td></tr>";
+            $.get(url, function (res) {
+                //alert(res);
+                var html = "";
+                var list = $.parseJSON(res);
+                for (var i = 0; i < list.length; i++) {
+                    var obj = list[i];
+                    html += body.replace("$Index$", obj.Index)
+                        .replace("$MpName$", obj.MpName)
+                        .replace("$CheckUrl$", obj.CheckUrl)
+                        .replace("$Domain$", obj.Domain);
+                }
+                $("#tbody").html(html);
+            });
+        })
+    </script>
+</body>
+</html>
