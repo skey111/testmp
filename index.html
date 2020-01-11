@@ -50,7 +50,8 @@
             $.get(url, function (res) {
                 //alert(res);
                 var html = "";
-                var list = $.parseJSON(res);
+                //var list = $.parseJSON(res);
+                var list = res;
                 for (var i = 0; i < list.length; i++) {
                     var obj = list[i];
                     html += body.replace("$Index$", obj.Index)
